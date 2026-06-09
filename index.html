@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday ❤️⚓</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+    background: linear-gradient(to bottom, #001f3f, #0074D9);
+    overflow: hidden;
+}
+
+h1 {
+    margin-top: 100px;
+    font-size: 40px;
+    animation: glow 2s infinite alternate;
+}
+
+p {
+    font-size: 20px;
+    margin: 20px;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #7FDBFF; }
+    to { text-shadow: 0 0 25px #00BFFF; }
+}
+
+.ship {
+    font-size: 60px;
+    animation: float 3s infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    animation: wave 6s infinite linear;
+}
+
+@keyframes wave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    animation: rise 5s linear;
+}
+
+@keyframes rise {
+    to {
+        transform: translateY(-700px);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    animation: blast 1.5s ease-out forwards;
+}
+
+@keyframes blast {
+    to {
+        transform: translate(var(--x), var(--y)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes bigPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.5); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes sparkle {
+    0% { text-shadow: 0 0 5px white; }
+    50% { text-shadow: 0 0 20px yellow; }
+    100% { text-shadow: 0 0 5px white; }
+}
+
+.pop {
+    color: red;
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    animation: bigPop 0.6s ease-out,
+               shake 0.4s ease-in-out 0.6s 2,
+               sparkle 1s ease-in-out 1s infinite;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background: orange;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#hiddenMsg {
+    display: none;
+}
+
+#cakeSection {
+    display: none;
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFD700;
+}
+</style>
+</head>
+
+<body>
+
+<h1>⚓ Happy Birthday ❤️⚓</h1>
+
+<p>
+Wishing you smooth seas, clear skies, and endless adventures 🌊<br>
+May your journey be filled with success, strength, and happiness.
+</p>
+
+<div class="ship">🚢</div>
+
+<br>
+
+<button onclick="showMessage()">Click for Surprise 🎁</button>
+
+<p id="hiddenMsg">
+
+<span id="bdayText">Happy 22 🎂💙</span>
+
+<br><br>
+
+<span id="typingText"></span>
+
+<br><br>
+
+<span id="finalLine" style="display:none;">
+— someone who might like you a little more than they should ❤️
+</span>
+
+<br><br>
+<button id="cakeBtn" onclick="cutCake()" style="display:none;">
+🎂 Cut the Cake
+</button>
+
+<div id="cakeSection" style="display:none; margin-top:20px;">
+
+    <img
+    src="https://media.giphy.com/media/He4wudo59enf2/giphy.gif"
+    width="250"
+    style="border-radius:10px; box-shadow:0 0 15px white;">
+
+</div>
+
+</p>
+
+<div class="wave"></div>
+
+<script>
+
+function showMessage() {
+    document.getElementById("hiddenMsg").style.display = "block";
+
+    createConfetti();
+    startHearts();
+    typeText();
+
+    setTimeout(() => {
+        document.getElementById("bdayText").classList.add("pop");
+    }, 300);
+}
+
+function createConfetti() {
+    for (let i = 0; i < 80; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+
+        let colors = ["red","yellow","blue","pink","white"];
+
+        c.style.backgroundColor =
+        colors[Math.floor(Math.random()*colors.length)];
+
+        c.style.setProperty("--x",
+        (Math.random()*600 - 300) + "px");
+
+        c.style.setProperty("--y",
+        (Math.random()*600 - 300) + "px");
+
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 1500);
+    }
+}
+
+function startHearts() {
+    setInterval(() => {
+
+        let h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random()*100 + "vw";
+
+        document.body.appendChild(h);
+
+        setTimeout(() => h.remove(), 5000);
+
+    }, 400);
+}
+
+function typeText() {
+
+   let text = "Another year older, another year bolder ⚓ \n \n Some people just become special without trying… and somehow, you're one of them.";
+    let i = 0;
+
+    function type() {
+
+        if (i < text.length) {
+
+            document.getElementById("typingText")
+            .innerHTML += text.charAt(i);
+
+            i++;
+            setTimeout(type, 40);
+
+        } else {
+
+            document.getElementById("finalLine")
+            .style.display = "block";
+
+            document.getElementById("cakeBtn")
+            .style.display = "inline-block";
+        }
+    }
+
+    type();
+}
+
+function cutCake() {
+
+    document.getElementById("cakeSection")
+    .style.display = "block";
+
+    createConfetti();
+}
+
+</script>
+
+</body>
+</html>
